@@ -1,0 +1,21 @@
+#include <Arduino.h>
+
+//const char *words[] = {"hello", "world", "ESP32", "random", "serial", "monitor", "output", "test", "message", "Arduino"};
+//const int wordCount = sizeof(words) / sizeof(words[0]);
+float floatMap(float x, float in_min, float in_max, float out_min, float out_max) {
+  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+void setup() {
+    Serial.begin(115200);
+    //randomSeed(analogRead(0)); // Seed randomness from an unconnected analog pin
+
+}
+
+void loop() {
+    float pin = analogRead(A5);
+    float value;
+    value = floatMap(pin,0,1023,0.0,1.0);
+    //Serial.print(pin);
+    Serial.println(value);
+    delay(50); // Wait 1 second before printing again
+}
