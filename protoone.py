@@ -4,9 +4,9 @@ import librosa
 import sounddevice as sd
 import threading
 import time
-from testingprototype import readserial
-import torch
-import torchlibrosa as tl
+#from testingprototype import readserial
+from proton import get_gps_data
+
 
 #For windows, you have to configurte your audio backend, this line will list everything, select WASAPI since it has the least latency
 sd.default.device = sd.query_devices(kind='output')['name'] 
@@ -72,7 +72,7 @@ har = istftperkuzz
 tog = 0
 switchevent = False
 switchreq = False
-fade_progress = readserial("COM4",115200)
+fade_progress = get_gps_data()#readserial("COM4",115200)
 #overhaul = readserial("/dev/ttyUSB0",115200)
 #if(overhaul == 1):
 #    fade_progress = 1.0
@@ -85,7 +85,7 @@ fade_progress = 0
 def toggle_audio():
     global fade_progress;
     while True:
-       fade_progress = readserial("COM4",115200)
+       fade_progress = get_gps_data()
 
 toggle_thread = threading.Thread(target=toggle_audio,daemon = True)
 toggle_thread.start()
